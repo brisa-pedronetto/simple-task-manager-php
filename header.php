@@ -11,10 +11,9 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark py-3">
-        <a class="navbar-brand mr-auto" href="/">Task Manager</a>
+    <div class="container py-3">
+        <nav class="navbar navbar-dark bg-info py-3 mb-3">
+            <a class="navbar-brand mr-auto" href="/">Task Manager</a>
 
-        <a href="/add_task.php" class="btn btn-primary">Add new task</a>
-    </nav>
-
-    <div class="container py-5">
+            <a href="/add_task.php" class="btn btn-primary">Add new task</a>
+        </nav>
