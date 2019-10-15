@@ -5,6 +5,10 @@
 
         <hr>
 
+        <label>Priority:</label> <?php echo $task['priority']; ?>
+
+        <hr>
+
         <form action="update_task_status.php" method="post" class="update-task-status">
             <input type="hidden" name="id" value="<?php echo $task['ID']; ?>">
             <select name="status" class="form-control">
@@ -14,7 +18,7 @@
             </select>
         </form>
 
-        <hr>
+        <br>
 
         <div class="d-flex">
             <a href="/edit_task.php?id=<?php echo $task['ID']; ?>" class="btn btn-outline-primary flex-fill mr-2">Edit</a>
