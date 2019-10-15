@@ -96,7 +96,7 @@ function get_all_tasks()
 {
     $connection = connect();
 
-    $sql  = "SELECT * FROM tasks";
+    $sql  = "SELECT * FROM tasks ORDER BY priority DESC";
 
     // Test SQL
     // echo $sql;
