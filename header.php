@@ -12,7 +12,7 @@
 
 <body>
     <div class="container py-3">
-        <nav class="navbar navbar-dark bg-info py-3 mb-3">
+        <nav class="navbar navbar-dark py-3 mb-3" style="background-color: #dcb235;">
             <a class="navbar-brand mr-auto" href="/">Task Manager</a>
 
             <a href="/add_task.php" class="btn btn-primary">Add new task</a>
