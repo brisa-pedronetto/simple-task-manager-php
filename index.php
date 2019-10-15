@@ -36,30 +36,36 @@ include('header.php');
     </div>
 <?php endif; ?>
 
-<div class="row">
-    <div class="col-4">
-        <h2 class="mb-4">To Do</h2>
-
-        <?php foreach ($to_do_tasks as $task) : ?>
-            <?php include('partials/task_card.php'); ?>
-        <?php endforeach; ?>
+<?php if (empty($all_tasks)) : ?>
+    <div class="alert alert-warning" role="alert">
+        There are currently no tasks. <a href="/add_task.php">Click here</a> to add one.
     </div>
+<?php else : ?>
+    <div class="row">
+        <div class="col-4">
+            <h2 class="mb-4">To Do</h2>
 
-    <div class="col-4">
-        <h2 class="mb-4">Doing</h2>
+            <?php foreach ($to_do_tasks as $task) : ?>
+                <?php include('partials/task_card.php'); ?>
+            <?php endforeach; ?>
+        </div>
 
-        <?php foreach ($doing_tasks as $task) : ?>
-            <?php include('partials/task_card.php'); ?>
-        <?php endforeach; ?>
+        <div class="col-4">
+            <h2 class="mb-4">Doing</h2>
+
+            <?php foreach ($doing_tasks as $task) : ?>
+                <?php include('partials/task_card.php'); ?>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="col-4">
+            <h2 class="mb-4">Done</h2>
+
+            <?php foreach ($done_tasks as $task) : ?>
+                <?php include('partials/task_card.php'); ?>
+            <?php endforeach; ?>
+        </div>
     </div>
-
-    <div class="col-4">
-        <h2 class="mb-4">Done</h2>
-
-        <?php foreach ($done_tasks as $task) : ?>
-            <?php include('partials/task_card.php'); ?>
-        <?php endforeach; ?>
-    </div>
-</div>
+<?php endif; ?>
 
 <?php include('footer.php'); ?>
