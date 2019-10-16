@@ -5,7 +5,15 @@
 
         <hr>
 
-        <label>Priority:</label> <?php echo $task['priority']; ?>
+        <div class="row">
+            <div class="col">
+                <span class="badge badge-<?php echo get_task_priority_color($task['priority']); ?>">Priority: <?php echo $task['priority']; ?></span>
+            </div>
+
+            <div class="col">
+                <span class="badge badge-secondary">Due Date: <?php echo date('d/m/Y @ h:ia', strtotime($task['due_date'])); ?></span>
+            </div>
+        </div>
 
         <hr>
 

@@ -169,3 +169,15 @@ function delete_task($task_id)
         die('Error: ' . $connection->error . '<br><br> SQL Query: ' . $sql);
     }
 }
+
+function get_task_priority_color($priority)
+{
+    switch ((int) $priority) {
+        case $priority > 7:
+            return 'danger';
+        case $priority > 4:
+            return 'warning';
+        default:
+            return 'primary';
+    }
+}
