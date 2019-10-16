@@ -81,12 +81,10 @@ function get_task($task_id)
     $result = $connection->query($sql);
 
     if ($result->num_rows > 0) {
-        // Only one iteration gets executed
-        while ($row = $result->fetch_assoc()) {
-            $connection->close();
+        $row = $result->fetch_assoc();
+        $connection->close();
 
-            return $row;
-        }
+        return $row;
     } else {
         die('Task does not exist');
     }
