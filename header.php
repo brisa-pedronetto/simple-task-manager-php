@@ -33,7 +33,7 @@ function get_order_selected($order)
 
 <body>
     <div class="container py-3">
-        <nav class="navbar navbar-dark py-3 mb-3" style="background-color: #dcb235;">
+        <nav class="navbar navbar-dark rounded py-3 mb-3" style="background-color: #dcb235;">
             <a class="navbar-brand mr-auto" href="/">Task Manager</a>
 
             <?php if (isset($_SESSION['user'])) : ?>
