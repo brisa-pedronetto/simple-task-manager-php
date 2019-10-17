@@ -93,15 +93,31 @@ function get_task($task_id)
     }
 }
 
-function get_all_tasks($search)
+function get_all_tasks($params)
 {
     $connection = connect();
 
     $sql  = "SELECT * FROM tasks WHERE user_id = " . $_SESSION['user']['ID'] . " ";
-    if ($search) {
-        $sql .= "AND (title LIKE '%" . $search . "%' OR description LIKE '%" . $search . "%') ";
+    if (isset($params['search'])) {
+        $sql .= "AND (title LIKE '%" . $params['search'] . "%' OR description LIKE '%" . $params['search'] . "%') ";
     }
-    $sql .= "ORDER BY priority DESC";
+    if (isset($params['order'])) {
+        switch ($params['order']) {
+            case 'priority_desc';
+                $sql .= "ORDER BY priority DESC";
+                break;
+            case 'priority_asc';
+                $sql .= "ORDER BY priority ASC";
+                break;
+            case 'due_date_desc';
+                $sql .= "ORDER BY due_date DESC";
+                break;
+            case 'due_date_asc';
+                $sql .= "ORDER BY due_date ASC";
+        }
+    } else {
+        $sql .= "ORDER BY priority DESC";
+    }
 
     // Test SQL
     // echo $sql;

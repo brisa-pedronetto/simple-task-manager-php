@@ -1,8 +1,16 @@
 <?php
 include('functions.php');
 
-$search = (isset($_GET['search'])) ? $_GET['search'] : null;
-$all_tasks = get_all_tasks($search);
+$params = [];
+if (isset($_GET['search'])) {
+    $params['search'] = $_GET['search'];
+}
+
+if (isset($_GET['order'])) {
+    $params['order'] = $_GET['order'];
+}
+
+$all_tasks = get_all_tasks($params);
 
 $to_do_tasks = array_filter($all_tasks, function ($task) {
     return ($task['status'] === 'To Do') ? true : false;

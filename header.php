@@ -30,7 +30,15 @@ if (!in_array($_SERVER['PHP_SELF'], ['/login.php', '/register.php']) && !isset($
             <a class="navbar-brand mr-auto" href="/">Task Manager</a>
 
             <?php if (isset($_SESSION['user'])) : ?>
-                <form action="/">
+                <form action="/" class="update-order">
+                    <select name="order" class="form-control">
+                        <option value="priority_desc" <?php if (isset($_GET['order'])) echo ($_GET['order'] === 'priority_desc') ? 'selected' : ''; ?>>Priority👇</option>
+                        <option value="priority_asc" <?php if (isset($_GET['order'])) echo ($_GET['order'] === 'priority_asc') ? 'selected' : ''; ?>>Priority☝️</option>
+                        <option value="due_date_desc" <?php if (isset($_GET['order'])) echo ($_GET['order'] === 'due_date_desc') ? 'selected' : ''; ?>>Due Date👇</option>
+                        <option value="due_date_asc" <?php if (isset($_GET['order'])) echo ($_GET['order'] === 'due_date_asc') ? 'selected' : ''; ?>>Due Date☝️️️</option>
+                    </select>
+                </form>
+                <form action="/" class=" ml-3">
                     <input type="text" name="search" value="<?php echo (isset($_GET['search'])) ? $_GET['search'] : '' ?>" placeholder="Search" class="form-control">
                 </form>
                 <a href="/add_task.php" class="btn btn-primary ml-3">Add new task</a>
