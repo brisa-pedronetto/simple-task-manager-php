@@ -10,6 +10,13 @@ if (!in_array($_SERVER['PHP_SELF'], ['/login.php', '/register.php']) && !isset($
     header('Location: /login.php?next=' . $_SERVER['REQUEST_URI']);
 }
 
+function get_order_selected($order)
+{
+    if (isset($_GET['order']) && ($_GET['order'] === $order)) {
+        echo 'selected';
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -32,10 +39,10 @@ if (!in_array($_SERVER['PHP_SELF'], ['/login.php', '/register.php']) && !isset($
             <?php if (isset($_SESSION['user'])) : ?>
                 <form action="/" class="update-order">
                     <select name="order" class="form-control">
-                        <option value="priority_desc" <?php if (isset($_GET['order'])) echo ($_GET['order'] === 'priority_desc') ? 'selected' : ''; ?>>Priority👇</option>
-                        <option value="priority_asc" <?php if (isset($_GET['order'])) echo ($_GET['order'] === 'priority_asc') ? 'selected' : ''; ?>>Priority☝️</option>
-                        <option value="due_date_desc" <?php if (isset($_GET['order'])) echo ($_GET['order'] === 'due_date_desc') ? 'selected' : ''; ?>>Due Date👇</option>
-                        <option value="due_date_asc" <?php if (isset($_GET['order'])) echo ($_GET['order'] === 'due_date_asc') ? 'selected' : ''; ?>>Due Date☝️️️</option>
+                        <option value="priority_desc" <?php get_order_selected('priority_desc'); ?>>Priority👇</option>
+                        <option value="priority_asc" <?php get_order_selected('priority_asc'); ?>>Priority☝️</option>
+                        <option value="due_date_desc" <?php get_order_selected('due_date_desc'); ?>>Due Date👇</option>
+                        <option value="due_date_asc" <?php get_order_selected('due_date_asc'); ?>>Due Date☝️️️</option>
                     </select>
                 </form>
                 <form action="/" class=" ml-3">
