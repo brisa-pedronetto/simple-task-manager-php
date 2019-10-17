@@ -1,3 +1,17 @@
+<?php
+// Start session if it hasn't been initialized yet
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+
+// Redirect visitor to login page in case it is not logged in.
+if (($_SERVER['PHP_SELF'] != '/login.php') && !isset($_SESSION['user'])) {
+    header('Location: /login.php?next=' . $_SERVER['REQUEST_URI']);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,4 +30,7 @@
             <a class="navbar-brand mr-auto" href="/">Task Manager</a>
 
             <a href="/add_task.php" class="btn btn-primary">Add new task</a>
+            <?php if (isset($_SESSION['user'])) : ?>
+                <a href="/logout.php" class="btn btn-outline-primary ml-3">Logout</a>
+            <?php endif; ?>
         </nav>

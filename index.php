@@ -45,6 +45,12 @@ include('header.php');
         <div class="col-4">
             <h2 class="mb-4">To Do</h2>
 
+            <?php if (empty($to_do_tasks)) : ?>
+                <div class="alert alert-warning" role="alert">
+                    There are not tasks in this list.
+                </div>
+            <?php endif; ?>
+
             <?php foreach ($to_do_tasks as $task) : ?>
                 <?php include('partials/task_card.php'); ?>
             <?php endforeach; ?>
@@ -53,6 +59,12 @@ include('header.php');
         <div class="col-4">
             <h2 class="mb-4">Doing</h2>
 
+            <?php if (empty($to_do_tasks)) : ?>
+                <div class="alert alert-warning" role="alert">
+                    There are not tasks in this list.
+                </div>
+            <?php endif; ?>
+
             <?php foreach ($doing_tasks as $task) : ?>
                 <?php include('partials/task_card.php'); ?>
             <?php endforeach; ?>
@@ -60,6 +72,12 @@ include('header.php');
 
         <div class="col-4">
             <h2 class="mb-4">Done</h2>
+
+            <?php if (empty($to_do_tasks)) : ?>
+                <div class="alert alert-warning" role="alert">
+                    There are not tasks in this list.
+                </div>
+            <?php endif; ?>
 
             <?php foreach ($done_tasks as $task) : ?>
                 <?php include('partials/task_card.php'); ?>

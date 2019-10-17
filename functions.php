@@ -181,3 +181,31 @@ function get_task_priority_color($priority)
             return 'primary';
     }
 }
+
+function do_login($credentials)
+{
+    if (!$credentials || !is_array($credentials)) {
+        die('No credentials provided or data is malformed');
+    }
+
+    $connection = connect();
+
+    $sql  = "SELECT * FROM users WHERE ";
+    $sql .= "username = '" . $credentials['username'] . "' ";
+    $sql .= "AND password = '" . $credentials['password'] . "'";
+
+    // Test SQL
+    // echo $sql;
+    // exit;
+
+    $result = $connection->query($sql);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $connection->close();
+
+        return $row;
+    } else {
+        return false;
+    }
+}
