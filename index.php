@@ -1,7 +1,8 @@
 <?php
 include('functions.php');
 
-$all_tasks = get_all_tasks();
+$search = (isset($_GET['search'])) ? $_GET['search'] : null;
+$all_tasks = get_all_tasks($search);
 
 $to_do_tasks = array_filter($all_tasks, function ($task) {
     return ($task['status'] === 'To Do') ? true : false;
@@ -47,7 +48,11 @@ include('header.php');
 
             <?php if (empty($to_do_tasks)) : ?>
                 <div class="alert alert-warning" role="alert">
-                    There are no tasks in this list.
+                    <?php if (isset($_GET['search']) && !empty($_GET['search'])) : ?>
+                        No tasks found.
+                    <?php else : ?>
+                        There are no tasks in this list.
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
 
@@ -61,7 +66,11 @@ include('header.php');
 
             <?php if (empty($doing_tasks)) : ?>
                 <div class="alert alert-warning" role="alert">
-                    There are no tasks in this list.
+                    <?php if (isset($_GET['search']) && !empty($_GET['search'])) : ?>
+                        No tasks found.
+                    <?php else : ?>
+                        There are no tasks in this list.
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
 
@@ -75,7 +84,11 @@ include('header.php');
 
             <?php if (empty($done_tasks)) : ?>
                 <div class="alert alert-warning" role="alert">
-                    There are no tasks in this list.
+                    <?php if (isset($_GET['search']) && !empty($_GET['search'])) : ?>
+                        No tasks found.
+                    <?php else : ?>
+                        There are no tasks in this list.
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
 

@@ -30,7 +30,10 @@ if (!in_array($_SERVER['PHP_SELF'], ['/login.php', '/register.php']) && !isset($
             <a class="navbar-brand mr-auto" href="/">Task Manager</a>
 
             <?php if (isset($_SESSION['user'])) : ?>
-                <a href="/add_task.php" class="btn btn-primary">Add new task</a>
+                <form action="/">
+                    <input type="text" name="search" value="<?php echo (isset($_GET['search'])) ? $_GET['search'] : '' ?>" placeholder="Search" class="form-control">
+                </form>
+                <a href="/add_task.php" class="btn btn-primary ml-3">Add new task</a>
                 <a href="/logout.php" class="btn btn-outline-primary ml-3">Logout</a>
             <?php else : ?>
                 <a href="/login.php" class="btn btn-primary ml-3">Login</a>

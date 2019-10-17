@@ -93,11 +93,15 @@ function get_task($task_id)
     }
 }
 
-function get_all_tasks()
+function get_all_tasks($search)
 {
     $connection = connect();
 
-    $sql  = "SELECT * FROM tasks WHERE user_id = " . $_SESSION['user']['ID'] . " ORDER BY priority DESC";
+    $sql  = "SELECT * FROM tasks WHERE user_id = " . $_SESSION['user']['ID'] . " ";
+    if ($search) {
+        $sql .= "AND (title LIKE '%" . $search . "%' OR description LIKE '%" . $search . "%') ";
+    }
+    $sql .= "ORDER BY priority DESC";
 
     // Test SQL
     // echo $sql;
