@@ -1,4 +1,4 @@
-<div class="card mb-4">
+<div class="card mb-4 p-2 rounded">
     <div class="card-body">
         <h5 class="card-title"><?php echo $task['title']; ?></h5>
         <div class="card-text"><?php echo $task['description']; ?></div>
