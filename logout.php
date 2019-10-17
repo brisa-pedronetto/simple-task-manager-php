@@ -1,8 +1,6 @@
 <?php
-session_start();
+include('functions.php');
 
-if (isset($_SESSION['user'])) {
-    unset($_SESSION['user']);
-}
+do_logout();
 
 header('Location: /');

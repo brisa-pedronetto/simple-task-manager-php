@@ -6,7 +6,7 @@ if (session_status() == PHP_SESSION_NONE) {
 
 
 // Redirect visitor to login page in case it is not logged in.
-if (($_SERVER['PHP_SELF'] != '/login.php') && !isset($_SESSION['user'])) {
+if (!in_array($_SERVER['PHP_SELF'], ['/login.php', '/register.php']) && !isset($_SESSION['user'])) {
     header('Location: /login.php?next=' . $_SERVER['REQUEST_URI']);
 }
 
@@ -29,8 +29,11 @@ if (($_SERVER['PHP_SELF'] != '/login.php') && !isset($_SESSION['user'])) {
         <nav class="navbar navbar-dark py-3 mb-3" style="background-color: #dcb235;">
             <a class="navbar-brand mr-auto" href="/">Task Manager</a>
 
-            <a href="/add_task.php" class="btn btn-primary">Add new task</a>
             <?php if (isset($_SESSION['user'])) : ?>
+                <a href="/add_task.php" class="btn btn-primary">Add new task</a>
                 <a href="/logout.php" class="btn btn-outline-primary ml-3">Logout</a>
+            <?php else : ?>
+                <a href="/login.php" class="btn btn-primary ml-3">Login</a>
+                <a href="/register.php" class="btn btn-primary ml-3">Register</a>
             <?php endif; ?>
         </nav>

@@ -47,7 +47,7 @@ include('header.php');
 
             <?php if (empty($to_do_tasks)) : ?>
                 <div class="alert alert-warning" role="alert">
-                    There are not tasks in this list.
+                    There are no tasks in this list.
                 </div>
             <?php endif; ?>
 
@@ -59,9 +59,9 @@ include('header.php');
         <div class="col-4">
             <h2 class="mb-4">Doing</h2>
 
-            <?php if (empty($to_do_tasks)) : ?>
+            <?php if (empty($doing_tasks)) : ?>
                 <div class="alert alert-warning" role="alert">
-                    There are not tasks in this list.
+                    There are no tasks in this list.
                 </div>
             <?php endif; ?>
 
@@ -73,9 +73,9 @@ include('header.php');
         <div class="col-4">
             <h2 class="mb-4">Done</h2>
 
-            <?php if (empty($to_do_tasks)) : ?>
+            <?php if (empty($done_tasks)) : ?>
                 <div class="alert alert-warning" role="alert">
-                    There are not tasks in this list.
+                    There are no tasks in this list.
                 </div>
             <?php endif; ?>
 

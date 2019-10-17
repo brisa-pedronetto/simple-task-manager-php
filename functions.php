@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 function connect()
 {
     global $connection;
@@ -44,12 +46,13 @@ function create_task($task)
     //     'due_date' => '2019-10-20 23:59:59'
     // ];
 
-    $sql  = "INSERT INTO tasks(title, description, priority, due_date) ";
+    $sql  = "INSERT INTO tasks(title, description, priority, due_date, user_id) ";
     $sql .= "VALUES(";
     $sql .= "'" . $task['title'] . "',";
     $sql .= "'" . $task['description'] . "',";
     $sql .= $task['priority'] . ",";
-    $sql .= "'" . $task['due_date'] . "'";
+    $sql .= "'" . $task['due_date'] . "', ";
+    $sql .= $_SESSION['user']['ID'];
     $sql .= ")";
 
     // Test SQL
@@ -72,7 +75,7 @@ function get_task($task_id)
 
     $connection = connect();
 
-    $sql  = "SELECT * FROM tasks WHERE ID = $task_id";
+    $sql  = "SELECT * FROM tasks WHERE ID = $task_id AND user_id = " . $_SESSION['user']['ID'];
 
     // Test SQL
     // echo $sql;
@@ -94,7 +97,7 @@ function get_all_tasks()
 {
     $connection = connect();
 
-    $sql  = "SELECT * FROM tasks ORDER BY priority DESC";
+    $sql  = "SELECT * FROM tasks WHERE user_id = " . $_SESSION['user']['ID'] . " ORDER BY priority DESC";
 
     // Test SQL
     // echo $sql;
@@ -130,7 +133,8 @@ function update_task($task)
     $sql .= "priority = " . $task['priority'] . ", ";
     $sql .= "due_date = '" . $task['due_date'] . "', ";
     $sql .= "status = '" . $task['status'] . "' ";
-    $sql .= "WHERE ID = " . $task['ID'];
+    $sql .= "WHERE ID = " . $task['ID'] . " ";
+    $sql .= "AND user_id = " . $_SESSION['user']['ID'];
 
     // Test SQL
     // echo $sql;
@@ -154,7 +158,7 @@ function delete_task($task_id)
 
     $connection = connect();
 
-    $sql  = "DELETE FROM tasks WHERE ID = $task_id";
+    $sql  = "DELETE FROM tasks WHERE ID = $task_id AND user_id = " . $_SESSION['user']['ID'];
 
     // Test SQL
     // echo $sql;
@@ -193,6 +197,78 @@ function do_login($credentials)
     $sql  = "SELECT * FROM users WHERE ";
     $sql .= "username = '" . $credentials['username'] . "' ";
     $sql .= "AND password = '" . $credentials['password'] . "'";
+
+    // Test SQL
+    // echo $sql;
+    // exit;
+
+    $result = $connection->query($sql);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $connection->close();
+
+        return $row;
+    } else {
+        return false;
+    }
+}
+
+function do_register($credentials)
+{
+    if (!$credentials || !is_array($credentials)) {
+        die('No credentials provided or data is malformed');
+    }
+
+    $connection = connect();
+
+    if (!!get_user($credentials['username'])) {
+        return false;
+    }
+
+    $sql  = "INSERT INTO users (username, password) VALUES (";
+    $sql .= "'" . $credentials['username'] . "', ";
+    $sql .= "'" . $credentials['password'] . "')";
+
+    // Test SQL
+    // echo $sql;
+    // exit;
+
+    $result = $connection->query($sql);
+
+    if ($result === TRUE) {
+        $new_id = $connection->insert_id;
+        $connection->close();
+        return $new_id;
+    } else {
+        die('Error: ' . $connection->error . '<br><br> SQL Query: ' . $sql);
+    }
+}
+
+function do_logout()
+{
+    if (isset($_SESSION['user'])) {
+        unset($_SESSION['user']);
+    }
+
+    return true;
+}
+
+function get_user($user_id)
+{
+    if (!$user_id) {
+        die('No user ID pr username provided');
+    }
+
+    $connection = connect();
+
+    $sql  = "SELECT * FROM users WHERE ";
+
+    if (is_integer($user_id)) {
+        $sql .= "ID = " . $user_id;
+    } else {
+        $sql .= "username = '" . $user_id . "'";
+    }
 
     // Test SQL
     // echo $sql;
